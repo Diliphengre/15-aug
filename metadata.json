@@ -1,0 +1,8 @@
+{
+  "name": "15 August  ",
+  "description": "A cinematic retro website celebrating Indian Independence Day with nostalgic memories, interactive paper kites, vintage Doordarshan \u0026 AIR radio aesthetics, and a glassmorphism music player.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

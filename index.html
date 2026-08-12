@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>15th August • Nostalgic Independence Day Experience</title>
+
+    <!-- Tailwind CSS v4 CDN & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rozha+One&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+      :root {
+        --saffron: #FF9933;
+        --white: #FFFFFF;
+        --green: #138808;
+        --navy: #000080;
+        --gold: #D4AF37;
+        --tv-wood: #2a1a0e;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #0c0a09;
+        color: #f5f5f4;
+        overflow-x: hidden;
+        user-select: none;
+      }
+
+      .font-rozha { font-family: 'Rozha One', serif; }
+      .font-cinzel { font-family: 'Cinzel', serif; }
+      .font-playfair { font-family: 'Playfair Display', serif; }
+      .font-teko { font-family: 'Teko', sans-serif; }
+
+      /* Retro CRT Scanlines & Shimmer */
+      .crt-scanlines {
+        background: linear-gradient(
+          rgba(18, 16, 16, 0) 50%, 
+          rgba(0, 0, 0, 0.25) 50%
+        ), linear-gradient(
+          90deg,
+          rgba(255, 0, 0, 0.03),
+          rgba(0, 255, 0, 0.01),
+          rgba(0, 0, 255, 0.03)
+        );
+        background-size: 100% 4px, 6px 100%;
+        pointer-events: none;
+      }
+
+      /* Vintage Paper Grain Background */
+      .vintage-bg {
+        background: 
+          radial-gradient(circle at 50% 20%, rgba(255, 153, 51, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(19, 136, 8, 0.12) 0%, transparent 50%),
+          radial-gradient(circle at 20% 70%, rgba(0, 0, 128, 0.1) 0%, transparent 40%),
+          linear-gradient(to bottom, #0f0d0b, #171411, #0a0908);
+      }
+
+      /* Glassmorphism Styles */
+      .glass-panel {
+        background: rgba(22, 19, 16, 0.65);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .glass-player {
+        background: rgba(18, 15, 13, 0.78);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 2px solid transparent;
+        border-image: linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+      }
+
+      /* Tricolor Glow & Accents */
+      .text-tricolor-gradient {
+        background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .border-tricolor {
+        border-image: linear-gradient(90deg, #FF9933, #FFFFFF, #138808) 1;
+      }
+
+      /* TV Frame & Metallic Dials */
+      .tv-cabinet {
+        background: radial-gradient(circle at 30% 30%, #3a2313, #1e1108);
+        box-shadow: 
+          0 25px 60px rgba(0, 0, 0, 0.8),
+          inset 0 2px 4px rgba(255, 255, 255, 0.15),
+          inset 0 -4px 8px rgba(0, 0, 0, 0.9);
+      }
+
+      .tv-screen-bezel {
+        background: #0d0c0a;
+        box-shadow: inset 0 8px 20px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(255, 255, 255, 0.05);
+      }
+
+      .brass-dial {
+        background: radial-gradient(circle at 35% 35%, #e6ca65, #997a22, #4d3d11);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.4);
+      }
+
+      /* Equalizer Animation */
+      .eq-bar {
+        animation: eqPulse 1.2s ease-in-out infinite alternate;
+      }
+      .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+      .eq-bar:nth-child(2) { animation-delay: 0.3s; }
+      .eq-bar:nth-child(3) { animation-delay: 0.5s; }
+      .eq-bar:nth-child(4) { animation-delay: 0.2s; }
+      .eq-bar:nth-child(5) { animation-delay: 0.4s; }
+
+      @keyframes eqPulse {
+        0% { height: 15%; }
+        100% { height: 100%; }
+      }
+
+      .spinning-wheel {
+        animation: spin 20s linear infinite;
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      /* Floating Animation */
+      .float-gentle {
+        animation: floatAnim 4s ease-in-out infinite;
+      }
+      @keyframes floatAnim {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-8px) rotate(1.5deg); }
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #120f0d;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #FF9933;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body class="vintage-bg min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-amber-500 selection:text-black">
+
+    <!-- Interactive Flying Kites Canvas Overlay -->
+    <canvas id="kiteCanvas" class="fixed inset-0 w-full h-full pointer-events-auto z-10"></canvas>
+
+    <!-- CRT Overlay FX Toggle Layer -->
+    <div id="crtOverlay" class="fixed inset-0 crt-scanlines z-20 pointer-events-none transition-opacity duration-300 opacity-80"></div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="relative z-30 flex flex-col min-h-screen pb-32">
+      
+      <!-- TOP NAVIGATION BAR -->
+      <header class="w-full px-4 sm:px-8 py-4 flex items-center justify-between border-b border-white/10 glass-panel sticky top-0 z-40">
+        <div class="flex items-center gap-3 sm:gap-4">
+          <!-- DD National Vintage Logo Badge -->
+          <div class="flex items-center gap-2 bg-neutral-900/90 border border-amber-500/30 px-3 py-1.5 rounded-full shadow-inner">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+            <span class="font-teko text-lg tracking-wider text-amber-400 font-bold uppercase">DD NATIONAL</span>
+            <span class="text-[10px] bg-red-900/60 text-red-200 px-1.5 py-0.5 rounded font-mono uppercase tracking-widest hidden sm:inline">LIVE 06:00 AM</span>
+          </div>
+
+          <!-- Ashoka Chakra Mini Icon -->
+          <div class="hidden md:flex items-center gap-2 text-xs text-amber-200/70 border-l border-white/10 pl-4 font-mono">
+            <svg class="w-5 h-5 text-blue-500 spinning-wheel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"/>
+            </svg>
+            <span>15TH AUGUST 1947 • NEW DELHI</span>
+          </div>
+        </div>
+
+        <!-- Right Side Quick Controls -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Fun Confetti Launcher Button -->
+          <button id="confettiBtn" class="flex items-center gap-2 bg-gradient-to-r from-amber-500 via-white to-emerald-600 hover:brightness-110 text-neutral-950 font-bold text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-full transition-all shadow-lg active:scale-95 cursor-pointer">
+            <span class="text-base">🪁</span>
+            <span class="hidden xs:inline">Fly Kite & Confetti</span>
+            <span class="xs:hidden">Confetti</span>
+            <span class="text-[10px] bg-black/20 px-1.5 py-0.5 rounded text-neutral-900 font-mono hidden sm:inline">SPACE</span>
+          </button>
+
+          <!-- CRT FX Toggle -->
+          <button id="toggleCrtBtn" title="Toggle CRT Scanline Effect" class="p-2 rounded-full bg-neutral-800/80 border border-white/10 hover:border-amber-400/50 text-amber-200/80 hover:text-amber-300 transition-all active:scale-90 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </button>
+
+          <!-- Sound FX Synth Toggle -->
+          <button id="soundFxBtn" title="Play Nostalgic Fanfare Sound" class="p-2 rounded-full bg-neutral-800/80 border border-white/10 hover:border-emerald-400/50 text-emerald-200/80 hover:text-emerald-300 transition-all active:scale-90 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- HERO & MEMORY BANNER -->
+      <section class="max-w-6xl mx-auto px-4 pt-8 pb-4 text-center flex flex-col items-center">
+        <!-- Tricolor Badge Header -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 via-white/5 to-emerald-500/10 border border-white/10 text-xs sm:text-sm font-medium tracking-widest uppercase text-amber-200 mb-4 animate-fade-in">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          SWATANTRATA DIWAS • NOSTALGIA ARCHIVE
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        </div>
+
+        <!-- Large Memorable Vintage Title -->
+        <h1 class="font-rozha text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-tight text-white drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] mb-3">
+          15<span class="text-amber-500">th</span> AUGUST <span class="text-emerald-500">1947</span>
+        </h1>
+        <p class="font-playfair italic text-lg sm:text-2xl text-amber-100/90 max-w-2xl font-light mb-6">
+          "At the stroke of the midnight hour, when the world sleeps, India will awake to life and freedom."
+        </p>
+
+        <!-- ROTATING NOSTALGIC MESSAGES TICKER -->
+        <div class="w-full max-w-3xl glass-panel rounded-2xl p-4 sm:p-5 border-amber-500/20 relative overflow-hidden shadow-2xl">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3 text-xs font-mono text-amber-300/80">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              90s CHILDHOOD MEMORY #<span id="quoteNumber">1</span>
+            </span>
+            <span class="text-[10px] tracking-widest text-neutral-400 uppercase">AUTO-ROTATING MEMORY CAPSULE</span>
+          </div>
+          
+          <div class="min-h-[60px] flex items-center justify-center px-2">
+            <p id="quoteText" class="text-base sm:text-lg text-neutral-200 font-normal leading-relaxed transition-all duration-500">
+              Loading memory of 15th August morning...
+            </p>
+          </div>
+
+          <div class="flex items-center justify-center gap-2 mt-3 pt-2 border-t border-white/5">
+            <button id="prevQuoteBtn" class="text-neutral-400 hover:text-amber-300 p-1 text-xs transition-colors cursor-pointer">← Previous</button>
+            <div class="flex gap-1.5 px-3" id="quoteDots"></div>
+            <button id="nextQuoteBtn" class="text-neutral-400 hover:text-amber-300 p-1 text-xs transition-colors cursor-pointer">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CENTRAL NOSTALGIC HERO OBJECT: VINTAGE 90s TV & RADIO CONSOLE -->
+      <section class="max-w-5xl mx-auto px-4 py-8 w-full">
+        <div class="relative w-full tv-cabinet rounded-3xl p-4 sm:p-8 border-4 border-amber-900/40 shadow-[0_30px_100px_rgba(0,0,0,0.9)]">
+          
+          <!-- Top Antenna & Tricolor Ribbon Detail -->
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 flex justify-center items-end h-12 w-32 pointer-events-none">
+            <div class="w-1 h-14 bg-gradient-to-t from-neutral-700 to-neutral-400 origin-bottom -rotate-25 shadow"></div>
+            <div class="w-1 h-14 bg-gradient-to-t from-neutral-700 to-neutral-400 origin-bottom rotate-25 shadow"></div>
+            <!-- Tricolor Ribbon Bow on Antenna -->
+            <div class="absolute top-2 w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 via-white to-emerald-600 shadow-md"></div>
+          </div>
+
+          <!-- TV Main Grid: Screen + Side Control Panel -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            
+            <!-- CRT Screen Frame (8 Cols) -->
+            <div class="lg:col-span-8 relative">
+              <div class="tv-screen-bezel rounded-2xl p-3 sm:p-4 border border-neutral-700/50 relative overflow-hidden">
+                
+                <!-- CRT Glass Tube Display Container -->
+                <div class="relative aspect-video w-full bg-black rounded-xl overflow-hidden shadow-inner flex items-center justify-center group">
+                  
+                  <!-- YOUTUBE VIDEO / VISUAL CONTAINER -->
+                  <div id="playerContainer" class="w-full h-full relative">
+                    <!-- YouTube Iframe will be injected here by API -->
+                    <div id="ytIframePlaceholder" class="w-full h-full flex flex-col items-center justify-center bg-neutral-950 p-6 text-center">
+                      <div class="w-16 h-16 rounded-full border-2 border-amber-500/40 border-t-amber-400 animate-spin mb-4"></div>
+                      <p class="font-teko text-2xl text-amber-300">TUNING DOORDARSHAN BROADCAST...</p>
+                      <p class="text-xs text-neutral-400">Loading patriotic YouTube playlist audio stream</p>
+                    </div>
+                  </div>
+
+                  <!-- CRT Screen Scanline Overlay on TV -->
+                  <div class="absolute inset-0 crt-scanlines pointer-events-none"></div>
+
+                  <!-- TV Channel Badge OSD -->
+                  <div class="absolute top-3 left-3 bg-black/70 backdrop-blur border border-amber-500/40 px-2.5 py-1 rounded text-amber-300 font-mono text-xs flex items-center gap-2 pointer-events-none z-10">
+                    <span id="tvChannelDisplay">CH-01 • DD NATIONAL</span>
+                  </div>
+
+                  <!-- CRT Static Flash FX Layer -->
+                  <div id="staticFlash" class="absolute inset-0 bg-neutral-200 pointer-events-none opacity-0 transition-opacity duration-150 z-20"></div>
+                </div>
+
+                <!-- Bottom TV Speaker Grill & Wooden Accents -->
+                <div class="mt-3 flex items-center justify-between px-2 text-xs font-mono text-neutral-400">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>SIGNAL: 100% STABLE</span>
+                  </div>
+                  <span class="text-neutral-500">SOLID STATE COLOR TV • 1994 MODEL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TV Side Control Panel (4 Cols) -->
+            <div class="lg:col-span-4 flex flex-col justify-between h-full bg-neutral-900/80 rounded-2xl p-5 border border-amber-900/30 shadow-inner">
+              
+              <!-- Brand Badge -->
+              <div class="text-center pb-4 border-b border-white/10">
+                <span class="font-cinzel text-xl text-amber-300 tracking-widest font-bold">BELTRON</span>
+                <p class="text-[10px] text-neutral-400 tracking-wider uppercase">National Television & Radio Corp</p>
+              </div>
+
+              <!-- Channel Selector Knobs -->
+              <div class="py-4 space-y-5">
+                <div>
+                  <label class="text-xs font-mono text-amber-200/80 mb-2 block text-center uppercase tracking-wider">Channel Selector</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button class="channel-btn active bg-amber-500 text-neutral-950 font-bold text-xs py-2 px-3 rounded-lg border border-amber-300 transition-all cursor-pointer" data-channel="1" data-name="CH-01 • DD NATIONAL">
+                      CH 1: DD Parade
+                    </button>
+                    <button class="channel-btn bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs py-2 px-3 rounded-lg border border-white/10 transition-all cursor-pointer" data-channel="2" data-name="CH-02 • AIR VIVIDH BHARATI">
+                      CH 2: AIR Radio
+                    </button>
+                    <button class="channel-btn bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs py-2 px-3 rounded-lg border border-white/10 transition-all cursor-pointer" data-channel="3" data-name="CH-03 • RED FORT LIVE">
+                      CH 3: Red Fort
+                    </button>
+                    <button class="channel-btn bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs py-2 px-3 rounded-lg border border-white/10 transition-all cursor-pointer" data-channel="4" data-name="CH-04 • KITE SKY CAM">
+                      CH 4: Kite Sky
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Metallic Rotary Dials -->
+                <div class="flex items-center justify-around pt-2">
+                  <div class="flex flex-col items-center gap-1">
+                    <div id="dialVhf" class="w-12 h-12 rounded-full brass-dial flex items-center justify-center cursor-pointer transition-transform active:rotate-45 shadow-lg border border-amber-200/30">
+                      <div class="w-1 h-5 bg-neutral-900 rounded-full"></div>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 uppercase">VHF TUNING</span>
+                  </div>
+
+                  <div class="flex flex-col items-center gap-1">
+                    <div id="dialVol" class="w-12 h-12 rounded-full brass-dial flex items-center justify-center cursor-pointer transition-transform active:rotate-90 shadow-lg border border-amber-200/30">
+                      <div class="w-1 h-5 bg-neutral-900 rounded-full"></div>
+                    </div>
+                    <span class="text-[10px] font-mono text-neutral-400 uppercase">VOLUME</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Speaker Mesh Grill -->
+              <div class="mt-2 pt-3 border-t border-white/10 bg-black/40 rounded-xl p-2.5 h-16 flex items-center justify-center gap-1">
+                <div class="w-full h-full rounded border border-white/5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:6px_6px] opacity-40"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AUTHENTIC NOSTALGIC DETAILS & MEMORY OBJECTS GRID -->
+      <section class="max-w-6xl mx-auto px-4 py-12">
+        <div class="text-center mb-8">
+          <h2 class="font-rozha text-3xl sm:text-4xl text-amber-300 mb-2">Authentic 15th August Memories</h2>
+          <p class="text-neutral-400 text-sm max-w-xl mx-auto">Click on any memory item to unlock authentic quotes, sounds, and nostalgic stories from Indian school days.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Memory Card 1: Jalebi & Assembly -->
+          <div class="memory-card glass-panel rounded-2xl p-6 border-amber-500/20 hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-4xl group-hover:scale-110 transition-transform">🍬</span>
+              <span class="text-xs font-mono bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full border border-amber-500/30">SCHOOL ASSEMBLY</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">Hot Crisp Jalebis in Paper Bags</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">
+              Standing straight in white canvas shoes during flag hoisting, eagerly waiting for the paper pouch with two sweet golden jalebis distributed after the principal's speech.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-200/60 font-mono">
+              <span>SOUND: "JAI HIND!"</span>
+              <span class="text-amber-400 font-bold group-hover:translate-x-1 transition-transform">Tap to replay →</span>
+            </div>
+          </div>
+
+          <!-- Memory Card 2: Tricolor Paper Kites -->
+          <div class="memory-card glass-panel rounded-2xl p-6 border-emerald-500/20 hover:border-emerald-400/60 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-4xl group-hover:scale-110 transition-transform">🪁</span>
+              <span class="text-xs font-mono bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-500/30">ROOFTOP BATTLES</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">"Kai Po Che!" & Glass Thread</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">
+              Terraces packed with friends, sound of tape recorders blasting 'Des Rangila', holding the wooden Charkhi spool, and screaming 'Aaye Bo!' as a cut kite drifted in the breeze.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-emerald-200/60 font-mono">
+              <span>PHRASE: "KAI PO CHE!"</span>
+              <span class="text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">Tap to replay →</span>
+            </div>
+          </div>
+
+          <!-- Memory Card 3: Doordarshan Parade -->
+          <div class="memory-card glass-panel rounded-2xl p-6 border-blue-500/20 hover:border-blue-400/60 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-4xl group-hover:scale-110 transition-transform">📺</span>
+              <span class="text-xs font-mono bg-blue-500/20 text-blue-300 px-2.5 py-1 rounded-full border border-blue-500/30">DD NATIONAL</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">Red Fort Telecast & Brass Bands</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">
+              Waking up early to the iconic Doordarshan tune animation, watching the 21-gun salute, flower petals showered from helicopters, and marching bands playing 'Kadam Kadam Badaye Ja'.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-blue-200/60 font-mono">
+              <span>TUNE: DD EMBLEM</span>
+              <span class="text-blue-400 font-bold group-hover:translate-x-1 transition-transform">Tap to replay →</span>
+            </div>
+          </div>
+
+          <!-- Memory Card 4: Paper Flag Safety Pin -->
+          <div class="memory-card glass-panel rounded-2xl p-6 border-amber-500/20 hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-4xl group-hover:scale-110 transition-transform">📌</span>
+              <span class="text-xs font-mono bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full border border-amber-500/30">UNIFORM BADGE</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">Tricolor Badge & Safety Pin</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">
+              Carefully pinning the small plastic or paper tricolor flag onto the crisp white shirt pocket, making sure it didn't pin into the skin during PT exercises.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-200/60 font-mono">
+              <span>DETAIL: WHITE CANVAS</span>
+              <span class="text-amber-400 font-bold group-hover:translate-x-1 transition-transform">Tap to replay →</span>
+            </div>
+          </div>
+
+          <!-- Memory Card 5: All India Radio -->
+          <div class="memory-card glass-panel rounded-2xl p-6 border-emerald-500/20 hover:border-emerald-400/60 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-4xl group-hover:scale-110 transition-transform">📻</span>
+              <span class="text-xs font-mono bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-500/30">ALL INDIA RADIO</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">Patriotic Melodies on Radio</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">
+              Grandparents tuning the wooden Philips radio to Vividh Bharati, listening to Pandit Ravi Shankar's sitar rendering of Vande Mataram with gentle monsoon drizzle outside.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-emerald-200/60 font-mono">
+              <span>FREQ: 102.6 MHz</span>
+              <span class="text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">Tap to replay →</span>
+            </div>
+          </div>
+
+          <!-- Memory Card 6: Chalked White Shoes -->
+          <div class="memory-card glass-panel rounded-2xl p-6 border-blue-500/20 hover:border-blue-400/60 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer group shadow-xl">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-4xl group-hover:scale-110 transition-transform">👟</span>
+              <span class="text-xs font-mono bg-blue-500/20 text-blue-300 px-2.5 py-1 rounded-full border border-blue-500/30">NIGHT BEFORE</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">Wet White Chalk on Canvas Shoes</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">
+              Applying white shoe polish or wet chalk on canvas PT shoes on 14th August evening, leaving them under the ceiling fan to dry completely for the big assembly.
+            </p>
+            <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-blue-200/60 font-mono">
+              <span>PREPARATION: 100% READY</span>
+              <span class="text-blue-400 font-bold group-hover:translate-x-1 transition-transform">Tap to replay →</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FOOTER CREDITS -->
+      <footer id="appFooter" class="w-full text-center py-8 border-t border-white/10 mt-12 mb-8">
+        <p class="text-sm sm:text-base font-mono text-neutral-300 flex items-center justify-center gap-2">
+          <span class="text-neutral-400">Created By</span>
+          <span class="font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-white to-emerald-400 font-sans">Dilip Hengre</span>
+        </p>
+      </footer>
+
+      <!-- INTERACTIVE MEMORY MODAL / POPUP -->
+      <div id="memoryModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel max-w-lg w-full rounded-3xl p-6 border-amber-500/30 relative shadow-2xl scale-95 transition-transform duration-300" id="memoryModalContent">
+          <button id="closeModalBtn" class="absolute top-4 right-4 text-neutral-400 hover:text-white p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors cursor-pointer">
+            ✕
+          </button>
+          <div id="modalBody" class="space-y-4">
+            <!-- Modal Content injected via JavaScript -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GLASSMORPHISM MUSIC PLAYER (FIXED AT BOTTOM) -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 glass-player px-4 sm:px-8 py-3.5 transition-all duration-300">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6">
+        
+        <!-- Track Info & Cover Visualizer -->
+        <div class="flex items-center gap-3.5 w-full md:w-1/3">
+          <!-- Animated Equalizer Thumbnail Box -->
+          <div class="relative w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 via-neutral-900 to-emerald-700 p-0.5 shadow-lg shrink-0 overflow-hidden flex items-center justify-center">
+            <div id="playerEqContainer" class="w-full h-full bg-neutral-950/90 rounded-[10px] flex items-end justify-center gap-1 p-2">
+              <div class="w-1 bg-amber-400 rounded-t eq-bar h-2"></div>
+              <div class="w-1 bg-white rounded-t eq-bar h-4"></div>
+              <div class="w-1 bg-emerald-400 rounded-t eq-bar h-6"></div>
+              <div class="w-1 bg-blue-400 rounded-t eq-bar h-3"></div>
+              <div class="w-1 bg-amber-300 rounded-t eq-bar h-5"></div>
+            </div>
+          </div>
+
+          <!-- Track Name & Artist Marquee -->
+          <div class="overflow-hidden min-w-0 flex-1">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <p id="playerTrackTitle" class="text-sm sm:text-base font-bold text-white truncate font-playfair">
+                Vande Mataram (Maa Tujhe Salaam)
+              </p>
+            </div>
+            <p id="playerArtist" class="text-xs text-amber-200/70 truncate font-mono">
+              A.R. Rahman • Patriotic Songs Playlist
+            </p>
+          </div>
+        </div>
+
+        <!-- Player Audio Controls & Progress Bar -->
+        <div class="flex flex-col items-center gap-1.5 w-full md:w-2/3 max-w-xl">
+          
+          <!-- Control Buttons Row -->
+          <div class="flex items-center justify-center gap-4">
+            <!-- Shuffle / Repeat Toggle -->
+            <button id="shuffleBtn" title="Shuffle Playlist" class="text-neutral-400 hover:text-amber-300 p-1.5 rounded-full transition-colors active:scale-90 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20l16-16"/>
+              </svg>
+            </button>
+
+            <!-- Previous Track -->
+            <button id="prevTrackBtn" title="Previous Track" class="text-neutral-200 hover:text-white p-2 rounded-full hover:bg-white/10 transition-all active:scale-90 cursor-pointer">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+              </svg>
+            </button>
+
+            <!-- Play / Pause Main Button -->
+            <button id="playPauseBtn" title="Play or Pause Track" class="w-11 h-11 rounded-full bg-gradient-to-r from-amber-500 to-emerald-500 hover:brightness-110 text-neutral-950 flex items-center justify-center shadow-lg transition-all transform hover:scale-105 active:scale-95 cursor-pointer">
+              <svg id="playIcon" class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <svg id="pauseIcon" class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            </button>
+
+            <!-- Next Track -->
+            <button id="nextTrackBtn" title="Next Track" class="text-neutral-200 hover:text-white p-2 rounded-full hover:bg-white/10 transition-all active:scale-90 cursor-pointer">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+              </svg>
+            </button>
+
+            <!-- Playlist Drawer Toggle -->
+            <button id="togglePlaylistBtn" title="View Full YouTube Playlist" class="text-neutral-400 hover:text-emerald-300 p-1.5 rounded-full transition-colors active:scale-90 cursor-pointer relative">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h10M4 18h10"/>
+              </svg>
+              <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400"></span>
+            </button>
+          </div>
+
+          <!-- Progress Bar Row -->
+          <div class="w-full flex items-center gap-3 text-xs font-mono text-neutral-400">
+            <span id="currentTimeDisplay">0:00</span>
+            <div class="relative flex-1 h-1.5 bg-neutral-800 rounded-full overflow-hidden cursor-pointer group" id="progressBarContainer">
+              <div id="progressBarFill" class="h-full bg-gradient-to-r from-amber-500 via-white to-emerald-500 w-0 transition-all"></div>
+            </div>
+            <span id="durationDisplay">3:45</span>
+          </div>
+
+        </div>
+
+        <!-- Volume & Creator Credit -->
+        <div class="hidden lg:flex items-center justify-end gap-4 w-1/3">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12l-4-4H4V10h4l4-4z"/>
+            </svg>
+            <input type="range" id="volumeSlider" min="0" max="100" value="80" class="w-20 accent-amber-500 cursor-pointer h-1.5 bg-neutral-800 rounded-lg">
+          </div>
+          <div class="border-l border-white/10 pl-4 text-xs font-mono text-neutral-400">
+            Created By <span class="text-amber-300 font-semibold font-sans">Dilip Hengre</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- EXPANDABLE PLAYLIST DRAWER MODAL -->
+    <div id="playlistDrawer" class="fixed bottom-20 right-4 sm:right-8 z-50 w-full max-w-sm glass-panel rounded-2xl p-4 border-amber-500/30 hidden shadow-2xl transition-all">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-amber-400 text-lg">🎵</span>
+          <h4 class="font-playfair text-base font-bold text-white">Patriotic Playlist</h4>
+        </div>
+        <button id="closePlaylistBtn" class="text-neutral-400 hover:text-white text-xs p-1">✕</button>
+      </div>
+
+      <div class="max-h-64 overflow-y-auto space-y-2 pr-1" id="playlistItemsContainer">
+        <!-- Playlist Items dynamically populated by JS -->
+      </div>
+    </div>
+
+
+    <!-- JAVASCRIPT & YOUTUBE IFRAME API INTEGRATION -->
+    <script>
+      // CURATED PATRIOTIC PLAYLIST DATA (Matches YouTube Playlist PL0Z67tlyTaWo-c_QyUnhsoa4cUwceCmRu)
+      const PATRIOTIC_SONGS = [
+        { title: "Vande Mataram (Maa Tujhe Salaam)", artist: "A.R. Rahman", duration: "6:10", videoId: "jDn2bn7_YSM" },
+        { title: "Ye Jo Des Hai Tera", artist: "A.R. Rahman • Swades", duration: "5:28", videoId: "i2_T_7u_X90" },
+        { title: "Sandese Aate Hai", artist: "Sonu Nigam • Border", duration: "10:20", videoId: "e739hR2EunY" },
+        { title: "Des Rangila", artist: "Mahalaxmi Iyer • Fanaa", duration: "5:15", videoId: "d1OWvOInZ2o" },
+        { title: "Ae Watan (Female Version)", artist: "Sunidhi Chauhan • Raazi", duration: "3:43", videoId: "W-TLJ_J-T-E" },
+        { title: "Bharat Humko Jaan Se Pyaara Hai", artist: "Hariharan • Roja", duration: "3:10", videoId: "A3yG7ZJk6W8" },
+        { title: "Kadam Kadam Badaye Ja", artist: "Classic Patriotic Band", duration: "3:25", videoId: "4_O6uG5X39Q" },
+        { title: "Teri Mitti", artist: "B Praak • Kesari", duration: "5:14", videoId: "wF_B_aagJcM" },
+        { title: "Lehra Do", artist: "Arijit Singh • 83", duration: "3:30", videoId: "d9V2K3_4A-Y" }
+      ];
+
+      // ROTATING NOSTALGIC QUOTES & MESSAGES
+      const NOSTALGIC_QUOTES = [
+        "Waking up at 6:00 AM on August 15th to the iconic Doordarshan tune and watching the parade at Red Fort with hot chai and jalebis.",
+        "White canvas PT shoes polished with wet chalk, a tiny paper tricolor flag pinned over the heart with a safety pin.",
+        "The sky filled with hundreds of colorful kites, shouting 'Kai Po Che!' and 'Aaye Bo!' from monsoon rooftops.",
+        "Standing straight in school assembly singing 'Jana Gana Mana' under the gentle drizzle, waiting for the paper bag of sweet jalebis.",
+        "Listening to AIR (All India Radio) broadcasting Pandit Jawaharlal Nehru's 'Tryst with Destiny' address from 1947.",
+        "The sweet fragrance of rain-washed marigold garlands and red-saffron ribbons tied around school gates.",
+        "'At the stroke of the midnight hour, when the world sleeps, India will awake to life and freedom.' — Jawaharlal Nehru"
+      ];
+
+      let currentQuoteIndex = 0;
+      let currentTrackIndex = 0;
+      let isPlaying = false;
+      let ytPlayer = null;
+      let progressInterval = null;
+
+      // WEB AUDIO SYNTHESIZER FOR SOUND EFFECTS
+      const AudioSynth = {
+        ctx: null,
+        init() {
+          if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+        },
+        playFanfare() {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          
+          osc.type = 'triangle';
+          // Fanfare notes (C4, E4, G4, C5)
+          const notes = [261.63, 329.63, 392.00, 523.25];
+          notes.forEach((freq, idx) => {
+            osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+          });
+
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.8);
+        },
+        playBeep() {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, now);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.15);
+        },
+        playStatic() {
+          this.init();
+          const now = this.ctx.currentTime;
+          const bufferSize = this.ctx.sampleRate * 0.2;
+          const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const output = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            output[i] = Math.random() * 2 - 1;
+          }
+          const whiteNoise = this.ctx.createBufferSource();
+          whiteNoise.buffer = buffer;
+          const gain = this.ctx.createGain();
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          whiteNoise.connect(gain);
+          gain.connect(this.ctx.destination);
+          whiteNoise.start(now);
+        }
+      };
+
+      // YOUTUBE IFRAME API SETUP
+      function initYouTubePlayer() {
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      }
+
+      window.onYouTubeIframeAPIReady = function() {
+        ytPlayer = new YT.Player('playerContainer', {
+          height: '100%',
+          width: '100%',
+          playerVars: {
+            'listType': 'playlist',
+            'list': 'PL0Z67tlyTaWo-c_QyUnhsoa4cUwceCmRu',
+            'autoplay': 0,
+            'controls': 1,
+            'modestbranding': 1,
+            'rel': 0
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      };
+
+      function onPlayerReady(event) {
+        console.log("YouTube Player Ready!");
+        updateTrackUI();
+      }
+
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING) {
+          isPlaying = true;
+          updatePlayPauseButton();
+          startProgressTracker();
+        } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
+          isPlaying = false;
+          updatePlayPauseButton();
+          stopProgressTracker();
+        }
+      }
+
+      // PROGRESS TRACKER
+      function startProgressTracker() {
+        stopProgressTracker();
+        progressInterval = setInterval(() => {
+          if (ytPlayer && ytPlayer.getCurrentTime && ytPlayer.getDuration) {
+            const current = ytPlayer.getCurrentTime();
+            const total = ytPlayer.getDuration() || 200;
+            const pct = (current / total) * 100;
+            document.getElementById('progressBarFill').style.width = pct + '%';
+            document.getElementById('currentTimeDisplay').innerText = formatTime(current);
+            document.getElementById('durationDisplay').innerText = formatTime(total);
+          }
+        }, 1000);
+      }
+
+      function stopProgressTracker() {
+        if (progressInterval) clearInterval(progressInterval);
+      }
+
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      // UI CONTROLS FOR PLAYER
+      function togglePlayPause() {
+        AudioSynth.playBeep();
+        if (!ytPlayer) return;
+        if (isPlaying) {
+          ytPlayer.pauseVideo();
+        } else {
+          ytPlayer.playVideo();
+        }
+      }
+
+      function updatePlayPauseButton() {
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+        const eqBars = document.querySelectorAll('#playerEqContainer .eq-bar');
+
+        if (isPlaying) {
+          playIcon.classList.add('hidden');
+          pauseIcon.classList.remove('hidden');
+          eqBars.forEach(bar => bar.style.animationPlayState = 'running');
+        } else {
+          playIcon.classList.remove('hidden');
+          pauseIcon.classList.add('hidden');
+          eqBars.forEach(bar => bar.style.animationPlayState = 'paused');
+        }
+      }
+
+      function nextTrack() {
+        AudioSynth.playBeep();
+        currentTrackIndex = (currentTrackIndex + 1) % PATRIOTIC_SONGS.length;
+        if (ytPlayer && ytPlayer.nextVideo) {
+          ytPlayer.nextVideo();
+        }
+        updateTrackUI();
+      }
+
+      function prevTrack() {
+        AudioSynth.playBeep();
+        currentTrackIndex = (currentTrackIndex - 1 + PATRIOTIC_SONGS.length) % PATRIOTIC_SONGS.length;
+        if (ytPlayer && ytPlayer.previousVideo) {
+          ytPlayer.previousVideo();
+        }
+        updateTrackUI();
+      }
+
+      function updateTrackUI() {
+        const song = PATRIOTIC_SONGS[currentTrackIndex];
+        document.getElementById('playerTrackTitle').innerText = song.title;
+        document.getElementById('playerArtist').innerText = song.artist + " • Patriotic Songs";
+        
+        // Highlight in Playlist Drawer
+        document.querySelectorAll('.playlist-item').forEach((item, idx) => {
+          if (idx === currentTrackIndex) {
+            item.classList.add('bg-amber-500/20', 'border-amber-400');
+          } else {
+            item.classList.remove('bg-amber-500/20', 'border-amber-400');
+          }
+        });
+      }
+
+      // POPULATE PLAYLIST DRAWER
+      function populatePlaylistDrawer() {
+        const container = document.getElementById('playlistItemsContainer');
+        container.innerHTML = '';
+        PATRIOTIC_SONGS.forEach((song, idx) => {
+          const div = document.createElement('div');
+          div.className = `playlist-item p-2.5 rounded-xl border border-white/5 bg-neutral-900/60 hover:bg-neutral-800 flex items-center justify-between cursor-pointer transition-colors ${idx === currentTrackIndex ? 'bg-amber-500/20 border-amber-400' : ''}`;
+          div.onclick = () => {
+            currentTrackIndex = idx;
+            if (ytPlayer && ytPlayer.playVideoAt) {
+              ytPlayer.playVideoAt(idx);
+            }
+            updateTrackUI();
+          };
+          div.innerHTML = `
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono text-amber-400">0${idx + 1}</span>
+              <div>
+                <p class="text-xs font-bold text-white">${song.title}</p>
+                <p class="text-[10px] text-neutral-400">${song.artist}</p>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-neutral-400">${song.duration}</span>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      // ROTATING QUOTES LOGIC
+      function updateQuote(index) {
+        const quoteEl = document.getElementById('quoteText');
+        const numEl = document.getElementById('quoteNumber');
+        quoteEl.style.opacity = '0';
+        quoteEl.style.transform = 'translateY(6px)';
+        
+        setTimeout(() => {
+          currentQuoteIndex = index;
+          quoteEl.innerText = `"${NOSTALGIC_QUOTES[currentQuoteIndex]}"`;
+          numEl.innerText = currentQuoteIndex + 1;
+          quoteEl.style.opacity = '1';
+          quoteEl.style.transform = 'translateY(0px)';
+          renderQuoteDots();
+        }, 250);
+      }
+
+      function renderQuoteDots() {
+        const container = document.getElementById('quoteDots');
+        container.innerHTML = '';
+        NOSTALGIC_QUOTES.forEach((_, idx) => {
+          const dot = document.createElement('button');
+          dot.className = `w-2 h-2 rounded-full transition-all ${idx === currentQuoteIndex ? 'bg-amber-400 w-4' : 'bg-neutral-600 hover:bg-neutral-400'}`;
+          dot.onclick = () => updateQuote(idx);
+          container.appendChild(dot);
+        });
+      }
+
+      function startQuoteRotation() {
+        setInterval(() => {
+          const nextIdx = (currentQuoteIndex + 1) % NOSTALGIC_QUOTES.length;
+          updateQuote(nextIdx);
+        }, 6000);
+      }
+
+      // CONFETTI LAUNCHER WITH TRICOLOR STREAMERS
+      function triggerConfetti() {
+        AudioSynth.playFanfare();
+
+        // Canvas Confetti Tricolor Burst
+        if (window.confetti) {
+          confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#FF9933', '#FFFFFF', '#138808', '#000080', '#FFD700']
+          });
+
+          // Side cannons burst
+          setTimeout(() => {
+            confetti({
+              particleCount: 60,
+              angle: 60,
+              spread: 55,
+              origin: { x: 0 },
+              colors: ['#FF9933', '#FFFFFF', '#138808']
+            });
+            confetti({
+              particleCount: 60,
+              angle: 120,
+              spread: 55,
+              origin: { x: 1 },
+              colors: ['#FF9933', '#FFFFFF', '#138808']
+            });
+          }, 200);
+        }
+      }
+
+      // KITE CANVAS PHYSICS & INTERACTIVE FLYING KITES
+      const KiteSky = {
+        canvas: null,
+        ctx: null,
+        kites: [],
+        mouse: { x: 0, y: 0 },
+        init() {
+          this.canvas = document.getElementById('kiteCanvas');
+          this.ctx = this.canvas.getContext('2d');
+          this.resize();
+          window.addEventListener('resize', () => this.resize());
+
+          // Spawn 5 interactive kites
+          const colors = [
+            { top: '#FF9933', bottom: '#138808' },
+            { top: '#E63946', bottom: '#F1FAEE' },
+            { top: '#000080', bottom: '#FF9933' },
+            { top: '#138808', bottom: '#FFFFFF' },
+            { top: '#FF9933', bottom: '#FFFFFF' }
+          ];
+
+          for (let i = 0; i < 5; i++) {
+            this.kites.push({
+              x: Math.random() * this.canvas.width,
+              y: Math.random() * (this.canvas.height * 0.5) + 50,
+              size: 28 + Math.random() * 16,
+              color: colors[i % colors.length],
+              vx: (Math.random() - 0.5) * 1.2,
+              vy: (Math.random() - 0.5) * 0.8,
+              angle: (Math.random() - 0.5) * 0.2,
+              tailLength: 60 + Math.random() * 40
+            });
+          }
+
+          this.canvas.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+          });
+
+          this.canvas.addEventListener('click', (e) => {
+            // Check if user clicked near a kite
+            this.kites.forEach(k => {
+              const dx = e.clientX - k.x;
+              const dy = e.clientY - k.y;
+              if (Math.sqrt(dx*dx + dy*dy) < 50) {
+                triggerConfetti();
+              }
+            });
+          });
+
+          this.animate();
+        },
+        resize() {
+          this.canvas.width = window.innerWidth;
+          this.canvas.height = window.innerHeight;
+        },
+        animate() {
+          this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+          this.kites.forEach(k => {
+            // Wind drift
+            k.x += k.vx + Math.sin(Date.now() * 0.001) * 0.5;
+            k.y += k.vy + Math.cos(Date.now() * 0.0015) * 0.3;
+
+            // Bounce off screen limits
+            if (k.x < 50 || k.x > this.canvas.width - 50) k.vx *= -1;
+            if (k.y < 40 || k.y > this.canvas.height * 0.6) k.vy *= -1;
+
+            // Draw String to Bottom
+            this.ctx.beginPath();
+            this.ctx.moveTo(k.x, k.y);
+            this.ctx.quadraticCurveTo(
+              k.x + Math.sin(Date.now() * 0.002) * 20, 
+              k.y + (this.canvas.height - k.y) * 0.5, 
+              this.canvas.width * 0.8, 
+              this.canvas.height
+            );
+            this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            this.ctx.lineWidth = 1;
+            this.ctx.stroke();
+
+            // Draw Diamond Kite Shape
+            this.ctx.save();
+            this.ctx.translate(k.x, k.y);
+            this.ctx.rotate(k.angle + Math.sin(Date.now() * 0.002) * 0.1);
+
+            // Top Triangle
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, -k.size);
+            this.ctx.lineTo(k.size * 0.8, 0);
+            this.ctx.lineTo(-k.size * 0.8, 0);
+            this.ctx.closePath();
+            this.ctx.fillStyle = k.color.top;
+            this.ctx.fill();
+
+            // Bottom Triangle
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, k.size * 1.2);
+            this.ctx.lineTo(k.size * 0.8, 0);
+            this.ctx.lineTo(-k.size * 0.8, 0);
+            this.ctx.closePath();
+            this.ctx.fillStyle = k.color.bottom;
+            this.ctx.fill();
+
+            // Cross Spine
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, -k.size);
+            this.ctx.lineTo(0, k.size * 1.2);
+            this.ctx.moveTo(-k.size * 0.8, 0);
+            this.ctx.lineTo(k.size * 0.8, 0);
+            this.ctx.strokeStyle = '#222';
+            this.ctx.lineWidth = 1.5;
+            this.ctx.stroke();
+
+            // Ribbon Tail
+            this.ctx.beginPath();
+            this.ctx.moveTo(0, k.size * 1.2);
+            for (let i = 0; i < 5; i++) {
+              const tx = Math.sin(Date.now() * 0.005 + i) * 8;
+              const ty = k.size * 1.2 + (i + 1) * 12;
+              this.ctx.lineTo(tx, ty);
+            }
+            this.ctx.strokeStyle = '#FF9933';
+            this.ctx.lineWidth = 2;
+            this.ctx.stroke();
+
+            this.ctx.restore();
+          });
+
+          requestAnimationFrame(() => this.animate());
+        }
+      };
+
+      // EVENT LISTENERS & INITIALIZATION
+      document.addEventListener('DOMContentLoaded', () => {
+        initYouTubePlayer();
+        KiteSky.init();
+        populatePlaylistDrawer();
+        renderQuoteDots();
+        startQuoteRotation();
+        updateQuote(0);
+
+        // Confetti Button Click
+        document.getElementById('confettiBtn').addEventListener('click', triggerConfetti);
+
+        // Keyboard Spacebar Interaction
+        document.addEventListener('keydown', (e) => {
+          if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+            e.preventDefault();
+            triggerConfetti();
+          }
+        });
+
+        // Toggle CRT FX
+        document.getElementById('toggleCrtBtn').addEventListener('click', () => {
+          AudioSynth.playBeep();
+          const overlay = document.getElementById('crtOverlay');
+          overlay.classList.toggle('opacity-0');
+        });
+
+        // Sound FX Fanfare Button
+        document.getElementById('soundFxBtn').addEventListener('click', () => {
+          AudioSynth.playFanfare();
+        });
+
+        // TV Channel Buttons
+        document.querySelectorAll('.channel-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            AudioSynth.playStatic();
+            
+            // Flash screen
+            const flash = document.getElementById('staticFlash');
+            flash.style.opacity = '1';
+            setTimeout(() => flash.style.opacity = '0', 180);
+
+            document.querySelectorAll('.channel-btn').forEach(b => {
+              b.classList.remove('active', 'bg-amber-500', 'text-neutral-950', 'font-bold');
+              b.classList.add('bg-neutral-800', 'text-neutral-200');
+            });
+            btn.classList.add('active', 'bg-amber-500', 'text-neutral-950', 'font-bold');
+            
+            const chName = btn.dataset.name;
+            document.getElementById('tvChannelDisplay').innerText = chName;
+          });
+        });
+
+        // Metallic Dials Interaction
+        document.getElementById('dialVhf').addEventListener('click', () => {
+          AudioSynth.playStatic();
+        });
+        document.getElementById('dialVol').addEventListener('click', () => {
+          AudioSynth.playBeep();
+        });
+
+        // Quotes Nav
+        document.getElementById('prevQuoteBtn').addEventListener('click', () => {
+          const prevIdx = (currentQuoteIndex - 1 + NOSTALGIC_QUOTES.length) % NOSTALGIC_QUOTES.length;
+          updateQuote(prevIdx);
+        });
+        document.getElementById('nextQuoteBtn').addEventListener('click', () => {
+          const nextIdx = (currentQuoteIndex + 1) % NOSTALGIC_QUOTES.length;
+          updateQuote(nextIdx);
+        });
+
+        // Player Controls
+        document.getElementById('playPauseBtn').addEventListener('click', togglePlayPause);
+        document.getElementById('nextTrackBtn').addEventListener('click', nextTrack);
+        document.getElementById('prevTrackBtn').addEventListener('click', prevTrack);
+
+        // Playlist Drawer
+        document.getElementById('togglePlaylistBtn').addEventListener('click', () => {
+          AudioSynth.playBeep();
+          const drawer = document.getElementById('playlistDrawer');
+          drawer.classList.toggle('hidden');
+        });
+        document.getElementById('closePlaylistBtn').addEventListener('click', () => {
+          document.getElementById('playlistDrawer').classList.add('hidden');
+        });
+
+        // Memory Card Popups
+        document.querySelectorAll('.memory-card').forEach((card, index) => {
+          card.addEventListener('click', () => {
+            AudioSynth.playFanfare();
+            const title = card.querySelector('h3').innerText;
+            const desc = card.querySelector('p').innerText;
+            const icon = card.querySelector('span.text-4xl').innerText;
+            
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+              <div class="text-center py-2">
+                <span class="text-6xl inline-block float-gentle mb-3">${icon}</span>
+                <h3 class="font-rozha text-2xl text-amber-300 mb-2">${title}</h3>
+                <p class="text-neutral-200 text-sm leading-relaxed mb-4">${desc}</p>
+                <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl text-xs text-amber-200 font-mono">
+                  "Reliving 15th August memories from 1990s & 2000s India."
+                </div>
+              </div>
+            `;
+            
+            const modal = document.getElementById('memoryModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            triggerConfetti();
+          });
+        });
+
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+          const modal = document.getElementById('memoryModal');
+          modal.classList.add('opacity-0', 'pointer-events-none');
+        });
+      });
+    </script>
+  </body>
+</html>
+
+
